@@ -15,7 +15,7 @@ services:
     image: bingo-backend
     container_name: bingo-backend
     build:
-      context: ./back-end
+      context: .
       dockerfile: Dockerfile
     ports:
       - 5000:5000
