@@ -30,4 +30,4 @@ Sistema para a administração de jogos de bingo.
   - Criar o arquivo `.env` com base no exemplo do `.env.example`;
   - Executar o comando `npm run test`. 
 
-testando
+teste
