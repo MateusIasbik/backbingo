@@ -1,40 +1,26 @@
-name: CI/CD Back-End
-
+name: Pipeline Automatizado
 on:
   push:
     branches:
       - main
-
 jobs:
   CI-ContinuousIntegration:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-
-      - name: Ensure back-end directory exists
-        run: mkdir -p back-end
-
-      - name: Create .env.test file
-        run: |
-          echo "PORT=5000" > back-end/.env.test
-          echo "POSTGRES_PASSWORD=postgres" >> back-end/.env.test
-          echo "POSTGRES_USER=postgres" >> back-end/.env.test
-          echo "POSTGRES_DB=tests" >> back-end/.env.test
-          echo "DATABASE_URL=postgres://postgres:postgres@postgres:5432/tests" >> back-end/.env.test
-
-      - name: Verify .env.test creation
-        run: cat back-end/.env.test
-
-      - name: Build Docker Image
-        working-directory: back-end
-        run: |
-          docker build -t bingo-backend .
-
-      - name: Run Tests
-        working-directory: back-end
-        run: |
-          docker compose -f ../docker-compose-test.yml run backend npm run test:ci
+      - name: Make new a .env file
+        uses: SpicyPizza/create-envfile@v2.0.3
+        with:
+          envkey_PORT: 5000
+          envkey_POSTGRES_PASSWORD: "postgres"
+          envkey_POSTGRES_USER: "postgres"
+          envkey_POSTGRES_DB: "tests"
+          envkey_DATABASE_URL: "postgres://postgres:postgres@postgres:5432/tests"
+          directory: .
+          file_name: .env.test
+      - name: Run tests
+        run: docker compose -f docker-compose-test.yml run backend npm run test:ci
 
   CD-DeployToRender:
     name: Deploy to Render
@@ -64,6 +50,6 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
-          context: ./back-end
+          context: .
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/bingo-backimage:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/imagebingoback:latest
