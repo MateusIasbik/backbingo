@@ -23,10 +23,13 @@ jobs:
           directory: back-end
           file_name: .env.test
 
+      - name: Copy docker-compose-test.yml
+        run: cp ../docker-compose-test.yml ./docker-compose-test.yml
+
       - name: Run Tests
         working-directory: .
         run: |
-          docker compose -f ../docker-compose-test.yml run backend npm run test:ci
+          docker compose -f docker-compose-test.yml run backend npm run test:ci
 
   CD-DeployToRender:
     name: Deploy to Render
