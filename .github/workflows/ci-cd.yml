@@ -13,13 +13,12 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Create .env.test file
-        uses: SpicyPizza/create-envfile@v2.0.3
-        with:
-          envkey_PORT: 5000
-          envkey_POSTGRES_PASSWORD: "postgres"
-          envkey_POSTGRES_USER: "postgres"
-          envkey_POSTGRES_DB: "tests"
-          envkey_DATABASE_URL: "postgres://postgres:postgres@postgres:5432/tests"
+        run: |
+          echo "PORT=5000" >> back-end/.env.test
+          echo "POSTGRES_PASSWORD=postgres" >> back-end/.env.test
+          echo "POSTGRES_USER=postgres" >> back-end/.env.test
+          echo "POSTGRES_DB=tests" >> back-end/.env.test
+          echo "DATABASE_URL=postgres://postgres:postgres@postgres:5432/tests" >> back-end/.env.test
           directory: back-end
           file_name: .env.test
 
