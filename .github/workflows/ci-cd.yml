@@ -19,8 +19,6 @@ jobs:
           echo "POSTGRES_USER=postgres" >> back-end/.env.test
           echo "POSTGRES_DB=tests" >> back-end/.env.test
           echo "DATABASE_URL=postgres://postgres:postgres@postgres:5432/tests" >> back-end/.env.test
-          directory: back-end
-          file_name: .env.test
 
       - name: Run Tests
         working-directory: back-end
