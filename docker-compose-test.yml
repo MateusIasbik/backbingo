@@ -12,7 +12,6 @@ services:
       timeout: 5s
       retries: 5
   backend:
-    image: bingo-backend
     container_name: bingo-backend
     build:
       context: .
