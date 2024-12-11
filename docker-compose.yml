@@ -19,9 +19,7 @@ services:
   backend:
     image: mybackend
     container_name: mybackend
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: .
     ports:
       - 5000:5000
     networks:
