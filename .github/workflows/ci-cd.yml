@@ -9,8 +9,6 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-      - name: Debug File Structure
-        run: ls -R .
       - name: Make new a .env file
         uses: SpicyPizza/create-envfile@v2.0.3
         with:
@@ -55,3 +53,4 @@ jobs:
           context: .
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/imagebingoback:latest
+          
