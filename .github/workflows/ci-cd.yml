@@ -19,11 +19,15 @@ jobs:
           envkey_DATABASE_URL: "postgres://postgres:postgres@postgres:5432/tests"
           directory: .
           file_name: .env.test
-      
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install -y openssl
+
+      # 4. Subir os serviços necessários e rodar os testes
       - name: Run tests
-        run: docker compose -f docker-compose-test.yml run backend npm run test:ci
+        run: |
+          docker compose -f docker-compose-test.yml up -d
+          docker compose -f docker-compose-test.yml run backend npm run test:ci
+          docker compose -f docker-compose-test.yml down
 
   CD-DeployToRender:
     name: Deploy to Render
