@@ -1,8 +1,6 @@
 # busca imagem base do node
 FROM node:20
 
-RUN apk add --no-cache openssl
-
 # usa essa pasta como diretório de trabalho (tipo um CD)
 WORKDIR /usr/src
 
